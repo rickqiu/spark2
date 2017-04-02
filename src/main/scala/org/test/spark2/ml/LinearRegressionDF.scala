@@ -8,6 +8,7 @@ import org.apache.log4j._
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.types._
 import org.apache.spark.ml.linalg.Vectors
+import org.apache.spark.rdd.RDD
 
 object LinearRegressionDF {
 
@@ -47,9 +48,12 @@ object LinearRegressionDF {
     for (prediction <- predictionAndLabel) {
       println(prediction)
     }
-    
+
     val MSE = predictionAndLabel.map{ case(v, p) => math.pow((v - p), 2) }.mean()
+    val RMSE = math.sqrt(MSE)
+    
     println("training Mean Squared Error = " + MSE)
+    println("training Mean Squared Root Error = " + RMSE)
 
     spark.stop()
 
