@@ -46,6 +46,6 @@ object LinearRegressionRDD {
     println("training Mean Squared Root Error = " + RMSE)
     
     // Save and load model
-    //model.save(sc, "target/LinearRegressionWithSGD_Model")
+    model.save(sc, "target/LinearRegressionWithSGD_Model")
   }
 }
