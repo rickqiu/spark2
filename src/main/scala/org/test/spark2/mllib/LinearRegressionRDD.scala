@@ -1,4 +1,4 @@
-package org.text.spark2.mllib
+package org.test.spark2.mllib
 
 import org.apache.spark._
 import org.apache.spark.SparkContext._
@@ -42,8 +42,10 @@ object LinearRegressionRDD {
     
     val MSE = predictionAndLabel.map{ case(v, p) => math.pow((v - p), 2) }.mean()
     println("training Mean Squared Error = " + MSE)
+    val RMSE = math.sqrt(MSE)
+    println("training Mean Squared Root Error = " + RMSE)
     
     // Save and load model
-    model.save(sc, "target/LinearRegressionWithSGD_Model")
+    //model.save(sc, "target/LinearRegressionWithSGD_Model")
   }
 }
