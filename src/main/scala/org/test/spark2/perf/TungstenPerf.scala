@@ -17,14 +17,12 @@ object TungstenPerf {
     
     //RDD
     million.cache.count
+    
     //Dataset
     million.toDS().cache.count
     
     Thread.sleep(60000)
     
-    Thread.sleep(5000)
-    
- 
     spark.stop
   }
 }

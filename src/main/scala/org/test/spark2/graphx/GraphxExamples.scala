@@ -11,6 +11,8 @@ object GraphxExamples {
     val spark = SparkSession.builder.master("local[2]").appName(s"${this.getClass.getSimpleName}").getOrCreate()
     println("runLoveRelationExample .............")
     runLoveRelationExample(spark)
+    
+    /*
     println("runPersonnelRelationExample ........")   
     runPersonnelRelationExample(spark)
     println("runPageRankExample .................")
@@ -19,6 +21,7 @@ object GraphxExamples {
     runTriangleCountingExample(spark)
     println("runConnectedComponentsExample ......")
     runConnectedComponentsExample(spark)
+    */
 
     spark.stop()
   }
@@ -29,8 +32,8 @@ object GraphxExamples {
 
     val nodeArray = Array(
       (1L, Peep("Kim", 23)), (2L, Peep("Pat", 31)),
-      (3L, Peep("Hewitt", 52)), (4L, Peep("Kelly", 39)),
-      (5L, Peep("Jennifer", 30)))
+      (3L, Peep("Jennifer", 52)), (4L, Peep("Kelly", 39)),
+      (5L, Peep("Tom", 30)))
 
     val edgeArray = Array(
       Edge(2L, 1L, 7), Edge(2L, 4L, 2),
@@ -45,7 +48,7 @@ object GraphxExamples {
     val results = g.triplets.filter(t => t.attr > 7)
     
     for (triplet <- results.collect){
-      println(s"${triplet.srcAttr.name} Love ${triplet.dstAttr.name}")
+      println(s"${triplet.srcAttr.name} likes ${triplet.dstAttr.name}")
     }
   }
   

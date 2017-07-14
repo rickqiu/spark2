@@ -22,7 +22,7 @@ object CatalystOptimisedPlan {
 
     val r1 = r.collect().mkString(" ")
     println(r1)
-
+    
     val query2 = data.toDS
       .select('value, 'value + 1 as 'value2)
       .select('value2 + 1 as 'value2)

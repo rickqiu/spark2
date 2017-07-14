@@ -64,7 +64,7 @@ object StructuredNetworkWordCountWindowed {
     val slideDuration = s"$slideSize seconds"
 
     val spark = SparkSession
-      .builder.master("local[2]")
+      .builder.master("local[4]")
       .appName("StructuredNetworkWordCountWindowed")
       .getOrCreate()
 
@@ -80,12 +80,14 @@ object StructuredNetworkWordCountWindowed {
 
     // Split the lines into words, retaining timestamps
     val words = lines.as[(String, Timestamp)].flatMap(line =>
-      line._1.split(" ").map(word => (word, line._2))
+     line._1.split("\\s+").map(word => (word, line._2))
     ).toDF("word", "timestamp")
 
     // Group the data by window and word and compute the count of each group
-    val windowedCounts = words.groupBy(
-      window($"timestamp", windowDuration, slideDuration), $"word"
+    val windowedCounts = words
+      .withWatermark("timestamp", "10 minutes")
+      .groupBy(
+        window($"timestamp", windowDuration, slideDuration), $"word"
     ).count().orderBy("window")
 
     // Start running the query that prints the windowed word counts to the console

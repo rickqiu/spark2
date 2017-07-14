@@ -13,12 +13,14 @@ object PeopleSQL {
      
     println("runBasicDataFrameExample ...............")
     runBasicDataFrameExample(spark)
+    /*
     println("runDatasetCreationExample ..............")
     runDatasetCreationExample(spark)
     println("runInferSchemaExample ..................")
     runInferSchemaExample(spark)
     println("runProgrammaticSchemaExample ...........")
     runProgrammaticSchemaExample(spark)
+    */
 
     spark.stop()
     
@@ -49,7 +51,6 @@ object PeopleSQL {
     // $example on:run_sql$
     // Register the DataFrame as a SQL temporary view
     df.createOrReplaceTempView("people")
-
     val sqlDF = spark.sql("SELECT * FROM people")
     sqlDF.show()
     
@@ -60,7 +61,6 @@ object PeopleSQL {
     // Global temporary view is tied to a system preserved database `global_temp`
     spark.sql("SELECT * FROM global_temp.people").show()
 
-    // Global temporary view is cross-session
     spark.newSession().sql("SELECT * FROM global_temp.people").show()
   }
 
