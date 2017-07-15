@@ -42,7 +42,7 @@ import org.apache.spark.sql.functions._
  *    `$ bin/run-example sql.streaming.StructuredNetworkWordCountWindowed
  *    localhost 9999 <window duration in seconds> [<slide duration in seconds>]`
  *
- * One recommended <window duration>, <slide duration> pair is 10, 5
+ * One recommended <window duration>, <slide duration> pair is 5, 1 min
  */
 object StructuredNetworkWordCountWindowed {
 
@@ -65,6 +65,8 @@ object StructuredNetworkWordCountWindowed {
 
     val spark = SparkSession
       .builder.master("local[4]")
+      .config("spark.ui.port", 10200)
+      .config("spark.executor.memory", "8g")
       .appName("StructuredNetworkWordCountWindowed")
       .getOrCreate()
 
