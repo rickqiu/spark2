@@ -6,8 +6,8 @@ import org.apache.log4j._
 import scala.io.Source
 import java.nio.charset.CodingErrorAction
 import scala.io.Codec
-import org.apache.spark.mllib.recommendation._
-import java.io.File
+import org.apache.spark.mllib.recommendation.{ALS,Rating}
+import scala.collection.mutable.Map
 
 object MovieRecommendationsALS {
 
@@ -18,7 +18,7 @@ object MovieRecommendationsALS {
     codec.onMalformedInput(CodingErrorAction.REPLACE)
     codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
-    var movieNames: Map[Int, String] = Map()
+    var movieNames =  Map[Int, String]()
     
     val lines = Source.fromFile(path).getLines()
 
@@ -35,7 +35,7 @@ object MovieRecommendationsALS {
   def main(args: Array[String]) {
 
     Logger.getLogger("org").setLevel(Level.ERROR)
-    val sc = new SparkContext("local[*]", "MovieRecommendationsALS")
+    val sc = new SparkContext("local[*]", "mllib.MovieRecommendationsALS")
 
     println("Loading movie names...")
     val nameDict = loadMovieNames("./data/ml-100k/u.item")
