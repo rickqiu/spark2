@@ -3,6 +3,7 @@ Xplugin=
 Xplugin-disable=
 Xplugin-require=
 eclipse.preferences.version=1
+formatter.useProjectSpecificSettings=true
 scala.compiler.additionalParams=
 scala.compiler.installation=-1929145019
 scala.compiler.sourceLevel=2.11
