@@ -45,7 +45,7 @@ object MovieRecommendationsALS {
   }
 
   def main(args: Array[String]) {
-    val spark = SparkSession.builder.appName("ml.MovieRecommendationsALS").master("local[*]").getOrCreate()
+    val spark = SparkSession.builder.appName("ml.MovieRecommendationsALS").master("local[1]").getOrCreate()
      
     println("Loading movie names...")
     val nameDict = loadMovieNames("./data/ml-100k/u.item")
@@ -56,9 +56,9 @@ object MovieRecommendationsALS {
      
     // Build the recommendation model using ALS on the training data
     val als = new ALS()
-      .setNumBlocks(4)
-      .setMaxIter(5)
-      .setRegParam(0.02)
+      .setNumBlocks(1)
+      .setMaxIter(12)
+      .setRegParam(0.11)
       .setUserCol("userId")
       .setItemCol("movieId")
       .setRatingCol("rating")
